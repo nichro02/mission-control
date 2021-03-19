@@ -1,8 +1,12 @@
+//components
 import Task from './Task.js'
+//css
+import '../css/Column.css'
+
 
 const Column = (props) => {
     return(
-        <div>
+        <div id='container'>
             <div id='title'>
                 {props.column.title}
             </div>

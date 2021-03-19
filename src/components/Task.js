@@ -1,7 +1,8 @@
+import '../css/Task.css'
 
 const Task = (props) => {
     return(
-        <div>{props.task.content}</div>
+        <div id='task'>{props.task.content}</div>
     )
 }
 
