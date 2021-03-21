@@ -2,14 +2,22 @@ import data from './data.js'
 import Column from './components/Column'
 import './App.css'
 import { useState, useEffect } from 'react'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 const App = () => {
   const [boardData, setBoardData] = useState(data) 
   
   console.log(boardData)
     
+    const onDragEnd = result => {
+      //reorder column
+    }
+
     return (
-      boardData.columnOrder.map(columnId => {
+      <DragDropContext
+        onDragEnd = {onDragEnd}
+      >
+      {boardData.columnOrder.map(columnId => {
       const column = boardData.columns[columnId]
       const tasks = column.taskIds.map(taskId => boardData.tasks[taskId])
 
@@ -20,7 +28,9 @@ const App = () => {
         tasks={tasks}
       />
       )
-    })
+      
+    })}
+    </DragDropContext>
     )
 }
 
