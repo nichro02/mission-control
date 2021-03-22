@@ -2,11 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { DragDropContext } from 'react-beautiful-dnd';
 import data from './data.js';
-import Column from './components/Column.js';
+import Column from './Column.js';
 
-//when building out actual app, build this out in Board component so that I can render other components in App 
-
-export default class App extends React.Component {
+export default class Board extends React.Component {
   state = data;
 
   onDragEnd = result => {
