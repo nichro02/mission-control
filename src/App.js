@@ -27,14 +27,17 @@ export default class App extends React.Component {
     ) {
       return;
     }
+    //column at start of drag and column at end of drag
+    const start = this.state.columns[source.droppableId];
+    const finish = this.state.columns[destination.droppableId]
 
-    const column = this.state.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    if(start === finish){
+      const newTaskIds = Array.from(start.taskIds)
+      newTaskIds.splice(source.index, 1)
+      newTaskIds.splice(destination.index, 0, draggableId)
 
     const newColumn = {
-      ...column,
+      ...start,
       taskIds: newTaskIds,
     };
 
@@ -47,6 +50,34 @@ export default class App extends React.Component {
     };
 
     this.setState(newState);
+    return
+    }
+
+    //Moving a task from one column to another
+    const startTaskIds = Array.from(start.taskIds)
+    startTaskIds.splice(source.index, 1)
+
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    }
+
+    const finishTaskIds = Array.from(finish.taskIds)
+    finishTaskIds.splice(destination.index, 0, draggableId)
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
+    }
+
+    const newState = {
+      ...this.state,
+      columns: {
+        ...this.state.columns,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      }
+    }
+    this.setState(newState)
   };
 
   render() {
