@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import styled from 'styled-components'
 import { DragDropContext } from 'react-beautiful-dnd';
 import data from './data.js';
 import Column from './components/Column.js';
 
 //when building out actual app, build this out in Board component so that I can render other components in App 
+
+const Container = styled.div`
+  display: flex;
+`
 
 export default class App extends React.Component {
   state = data;
@@ -47,12 +52,14 @@ export default class App extends React.Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        {this.state.columnOrder.map(columnId => {
-          const column = this.state.columns[columnId];
-          const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+        <Container>
+          {this.state.columnOrder.map(columnId => {
+            const column = this.state.columns[columnId];
+            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
-          return <Column key={column.id} column={column} tasks={tasks} />;
-        })}
+            return <Column key={column.id} column={column} tasks={tasks} />;
+          })}
+        </Container>
       </DragDropContext>
     );
   }
