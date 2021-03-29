@@ -23,12 +23,14 @@ const TaskList = styled.div`
   min-height: 100px;
 `;
 
+//Droppable can be sorted either vertically (by default) or horizontally
+
 export default class Column extends React.Component {
   render() {
     return (
       <Container>
         <Title>{this.props.column.title}</Title>
-        <Droppable droppableId={this.props.column.id}>
+        <Droppable droppableId={this.props.column.id} direction='vertical'>
           {(provided, snapshot) => (
             <TaskList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
               {this.props.tasks.map((task, index) => (
